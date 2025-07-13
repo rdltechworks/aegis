@@ -47,7 +47,7 @@ graph TD
     end
 
     subgraph "User Interaction"
-        F -- Interacts via --> H{Web UI (HTMX)}
+        F -- Interacts via --> H{Web UI HTMX}
     end
 
     style A fill:#f9f,stroke:#333,stroke-width:2px
