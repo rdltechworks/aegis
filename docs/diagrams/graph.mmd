@@ -1,0 +1,125 @@
+graph TD
+    %% Data & Device Layer
+    subgraph DataLayer ["🔌 Data & Device Layer"]
+        direction TB
+        IoT["📡 IoT Devices &<br/>Network Traffic"] 
+        Mosquitto["📨 Mosquitto MQTT Broker<br/>(Message Queue)"]
+        IoT -.->|"Raw Telemetry"| Mosquitto
+    end
+    
+    %% Aegis Hub Core Platform
+    subgraph AegisCore ["🛡️ Aegis Hub Core Platform (Python 3.11+)"]
+        direction TB
+        
+        %% Storage Layer
+        subgraph Storage ["💾 Data Storage"]
+            SQLite["🗄️ SQLite Database<br/>(Time-Series & Logs)"]
+        end
+        
+        %% Backend Services
+        subgraph Backend ["⚙️ Backend Services"]
+            FastAPI["🚀 FastAPI Server<br/>(REST API & WebSocket)"]
+            SSE["📡 Server-Sent Events<br/>(Real-time Updates)"]
+        end
+        
+        %% Guardian Agent with Google ADK
+        subgraph Guardian ["🤖 Guardian Agent - Google ADK Integration"]
+            direction TB
+            
+            %% Google ADK Core
+            subgraph GoogleADK ["🧠 Google Agent Development Kit"]
+                ADKCore["🔧 ADK Runtime Engine"]
+                ADKTools["🛠️ ADK Tool Integration"]
+            end
+            
+            %% CAMA Cognitive Loop
+            subgraph CAMALoop ["🔄 CAMA Cognitive Loop"]
+                direction LR
+                Input["📥 Data Input"] --> Refactor["🔄 Refactor &<br/>Normalize"]
+                Refactor --> Breakdown["🔍 Analysis &<br/>Breakdown"]
+                Breakdown --> Compile["📊 Synthesis &<br/>Compile"]
+                Compile --> Output["📤 Actionable<br/>Insights"]
+            end
+            
+            %% Memory Systems
+            subgraph MemorySystems ["🧠 Memory Systems"]
+                direction TB
+                SM["📚 Semantic Memory<br/>(Domain Knowledge)"]
+                WM["⚡ Working Memory<br/>(Active Context)"]
+                PM["🛠️ Procedural Memory<br/>(Tools & Skills)"]
+                EM["📋 Episodic Memory<br/>(Incident History)"]
+            end
+            
+            %% ADK Integration
+            ADKCore -.->|"Orchestrates"| Input
+            ADKTools -.->|"Enhances"| Breakdown
+            
+            %% Memory Connections
+            Refactor -.->|"Leverages"| SM
+            Breakdown -.->|"Utilizes"| WM
+            Breakdown -.->|"Applies"| PM
+            Compile -.->|"Updates"| EM
+        end
+        
+        %% Frontend Layer
+        subgraph Frontend ["🖥️ Frontend Layer"]
+            HTMX["🌐 HTMX Web Interface<br/>(Dynamic UI)"]
+            WebDash["📊 Security Dashboard<br/>(Real-time Monitoring)"]
+            Alerts["🚨 Alert Management<br/>(Incident Response)"]
+        end
+        
+        %% Container Infrastructure
+        subgraph Container ["🐳 Container Infrastructure"]
+            Docker["🐳 Docker Containers"]
+            Compose["📋 Docker Compose<br/>(Service Orchestration)"]
+        end
+        
+        %% Internal Connections
+        Mosquitto ==>|"Message Ingestion"| FastAPI
+        FastAPI ==>|"Stores Data"| SQLite
+        SQLite ==>|"Queries Data"| Input
+        Output ==>|"Triggers"| SSE
+        Output ==>|"API Response"| FastAPI
+        FastAPI <==>|"Serves"| HTMX
+        SSE -.->|"Real-time Updates"| WebDash
+        FastAPI -.->|"Alert API"| Alerts
+    end
+    
+    %% User Interaction Layer
+    subgraph UserLayer ["👥 User Interaction Layer"]
+        direction TB
+        Users["👤 Security Analysts<br/>& Operators"]
+        Mobile["📱 Mobile Access<br/>(Future Enhancement)"]
+    end
+    
+    %% External Connections
+    HTMX <==>|"Interactive Dashboard"| Users
+    WebDash <==>|"Real-time Monitoring"| Users
+    Alerts -.->|"Notifications"| Users
+    
+    %% Container Deployment
+    Docker -.->|"Containerizes"| FastAPI
+    Docker -.->|"Containerizes"| Mosquitto
+    Docker -.->|"Containerizes"| SQLite
+    Compose -.->|"Orchestrates"| Docker
+    
+    %% Styling
+    classDef dataLayer fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
+    classDef backendLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef frontendLayer fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef memorySystem fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000
+    classDef processLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    classDef userLayer fill:#fff8e1,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef alertSystem fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    classDef containerLayer fill:#f1f8e9,stroke:#689f38,stroke-width:2px,color:#000
+    classDef googleADK fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#000
+    
+    class IoT,Mosquitto dataLayer
+    class FastAPI,SSE,SQLite backendLayer
+    class HTMX,WebDash frontendLayer
+    class SM,WM,PM,EM memorySystem
+    class Input,Refactor,Breakdown,Compile,Output processLayer
+    class Users,Mobile userLayer
+    class Alerts alertSystem
+    class Docker,Compose containerLayer
+    class ADKCore,ADKTools googleADK

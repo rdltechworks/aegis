@@ -1,0 +1,157 @@
+---
+config:
+  layout: fixed
+---
+flowchart TD
+ subgraph DataLayer["🔌 Data & Device Layer"]
+    direction TB
+        IoT["📡 IoT Devices &amp;<br>Network Traffic"]
+        Mosquitto["📨 Mosquitto MQTT Broker<br>(Message Queue)"]
+  end
+ subgraph Storage["💾 Data Storage"]
+        SQLite["🗄️ SQLite Database<br>(Time-Series &amp; Logs)"]
+  end
+ subgraph Backend["⚙️ Backend Services"]
+        FastAPI["🚀 FastAPI Server<br>(REST API &amp; WebSocket)"]
+        SSE["📡 Server-Sent Events<br>(Real-time Updates)"]
+  end
+ subgraph GoogleADK["🧠 Google Agent Development Kit"]
+        ADKCore["🔧 ADK Runtime Engine"]
+        ADKTools["🛠️ ADK Tool Integration"]
+        PubSub["📨 Pub/Sub Inference<br>(Load Balancing)"]
+  end
+ subgraph CAMALoop["🔄 CAMA Cognitive Loop"]
+    direction LR
+        Refactor["🔄 Refactor &amp;<br>Normalize"]
+        Input["📥 Data Input"]
+        Breakdown["🔍 Analysis &amp;<br>Breakdown"]
+        Compile["📊 Synthesis &amp;<br>Compile"]
+        Output["📤 Actionable<br>Insights"]
+  end
+ subgraph MemoryPalace["🏛️ AI Memory Palace (Method of Loci)"]
+    direction TB
+        NetworkRoom["🌐 Network Threat Room<br>(Attack Patterns)"]
+        IncidentRoom["🚨 Incident Response Room<br>(Historical Cases)"]
+        DeviceRoom["📱 Device Behavior Room<br>(Normal Baselines)"]
+        ComplianceRoom["📋 Compliance Room<br>(Regulatory Knowledge)"]
+  end
+ subgraph EmbeddingSpaces["🔗 Specialized Embedding Spaces"]
+    direction TB
+        CyberThreat["⚔️ Cybersecurity Threat<br>Intelligence Space"]
+        NetworkTraffic["🌐 Network Traffic<br>Analysis Space"]
+        ComplianceRegs["📜 Regulatory Compliance<br>Knowledge Space"]
+        DeviceBehavior["📊 Device Behavior<br>Pattern Space"]
+  end
+ subgraph MemorySystems["🧠 Enhanced Memory Systems"]
+    direction TB
+        SM["📚 Semantic Memory<br>(Cross-Domain Knowledge)"]
+        WM["⚡ Working Memory<br>(Active Context)"]
+        PM["🛠️ Procedural Memory<br>(Tools &amp; Skills)"]
+        EM["📋 Episodic Memory<br>(Incident Timeline)"]
+  end
+ subgraph Guardian["🤖 Guardian Agent - Google ADK Integration"]
+    direction TB
+        GoogleADK
+        CAMALoop
+        MemoryPalace
+        EmbeddingSpaces
+        MemorySystems
+  end
+ subgraph Frontend["🖥️ Frontend Layer"]
+        HTMX["🌐 HTMX Web Interface<br>(Dynamic UI)"]
+        WebDash["📊 Security Dashboard<br>(Real-time Monitoring)"]
+        Alerts["🚨 Alert Management<br>(Incident Response)"]
+  end
+ subgraph Container["🐳 Container Infrastructure"]
+        Docker["🐳 Docker Containers"]
+        Compose["📋 Docker Compose<br>(Service Orchestration)"]
+  end
+ subgraph AegisCore["🛡️ Aegis Hub Core Platform (Python 3.11+)"]
+    direction TB
+        Storage
+        Backend
+        Guardian
+        Frontend
+        Container
+  end
+ subgraph UserLayer["👥 User Interaction Layer"]
+    direction TB
+        Users["👤 Security Analysts<br>&amp; Operators"]
+        Mobile["📱 Mobile Access<br>(Future Enhancement)"]
+  end
+    IoT -. Raw Telemetry .-> Mosquitto
+    Input --> Refactor
+    Refactor --> Breakdown
+    Breakdown --> Compile
+    Compile --> Output
+    ADKCore -. Orchestrates .-> Input
+    ADKTools -. Enhances .-> Breakdown
+    PubSub -. Manages Load .-> Compile
+    Refactor -. Retrieves from .-> NetworkRoom
+    Breakdown -. Accesses .-> IncidentRoom
+    Breakdown -. Queries .-> DeviceRoom
+    Compile -. References .-> ComplianceRoom
+    Input -. Contextual Query .-> CyberThreat
+    Refactor -. Pattern Match .-> NetworkTraffic
+    Breakdown -. Compliance Check .-> ComplianceRegs
+    Compile -. Behavior Analysis .-> DeviceBehavior
+    NetworkRoom -. Feeds .-> SM
+    IncidentRoom -. Updates .-> EM
+    DeviceRoom -. Informs .-> WM
+    ComplianceRoom -. Guides .-> PM
+    Mosquitto == Message Ingestion ==> FastAPI
+    FastAPI == Stores Data ==> SQLite
+    SQLite == Queries Data ==> Input
+    Output == Triggers ==> SSE
+    Output == API Response ==> FastAPI
+    FastAPI <== Serves ==> HTMX
+    SSE -. "Real-time Updates" .-> WebDash
+    FastAPI -. Alert API .-> Alerts
+    HTMX <== Interactive Dashboard ==> Users
+    WebDash <== "Real-time Monitoring" ==> Users
+    Alerts -. Notifications .-> Users
+    Docker -. Containerizes .-> FastAPI & Mosquitto & SQLite
+    Compose -. Orchestrates .-> Docker
+     IoT:::dataLayer
+     Mosquitto:::dataLayer
+     SQLite:::backendLayer
+     FastAPI:::backendLayer
+     SSE:::backendLayer
+     ADKCore:::googleADK
+     ADKTools:::googleADK
+     PubSub:::googleADK
+     Refactor:::processLayer
+     Input:::processLayer
+     Breakdown:::processLayer
+     Compile:::processLayer
+     Output:::processLayer
+     NetworkRoom:::memoryPalace
+     IncidentRoom:::memoryPalace
+     DeviceRoom:::memoryPalace
+     ComplianceRoom:::memoryPalace
+     CyberThreat:::embeddingSpace
+     NetworkTraffic:::embeddingSpace
+     ComplianceRegs:::embeddingSpace
+     DeviceBehavior:::embeddingSpace
+     SM:::memorySystem
+     WM:::memorySystem
+     PM:::memorySystem
+     EM:::memorySystem
+     HTMX:::frontendLayer
+     WebDash:::frontendLayer
+     Alerts:::alertSystem
+     Docker:::containerLayer
+     Compose:::containerLayer
+     Users:::userLayer
+     Mobile:::userLayer
+    classDef dataLayer fill:#e1f5fe,stroke:#0277bd,stroke-width:2px,color:#000
+    classDef backendLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#000
+    classDef frontendLayer fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#000
+    classDef memorySystem fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#000
+    classDef processLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px,color:#000
+    classDef userLayer fill:#fff8e1,stroke:#f57c00,stroke-width:2px,color:#000
+    classDef alertSystem fill:#ffebee,stroke:#d32f2f,stroke-width:2px,color:#000
+    classDef containerLayer fill:#f1f8e9,stroke:#689f38,stroke-width:2px,color:#000
+    classDef googleADK fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#000
+    classDef memoryPalace fill:#f8bbd9,stroke:#ad1457,stroke-width:2px,color:#000
+    classDef embeddingSpace fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px,color:#000

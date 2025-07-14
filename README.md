@@ -1,3 +1,6 @@
+
+![Aegis Hub Logo](logo.png)
+
 # Aegis Hub: The Agentic Digital Guardian
 
 **Aegis Hub** is a next-generation, AI-powered digital guardian for your smart home or experimental lab. It functions as an intelligent, agentic firewall that monitors network traffic and device behavior in real-time. By combining a robust data ingestion pipeline with a conversational AI agent, Aegis Hub provides both proactive protection and intuitive, interactive control over your local network.

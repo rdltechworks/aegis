@@ -1,0 +1,30 @@
+graph TD
+    subgraph "Sensor Layer"
+        A[Himax Sensors] -- Wi-Fi/LoRaWAN/Zigbee --> B(MQTT Broker Mosquitto on Pi)
+        C[Environmental Sensors] -- Wi-Fi/LoRaWAN/Zigbee --> B
+    end
+
+    subgraph "Raspberry Pi Edge Hub"
+        direction LR
+        B -- MQTT --> D[FastAPI Application]
+        D -- Data Ingestion --> E[SQLite Database]
+        E -- Data Extraction --> F[Knowledge Graph Preparation]
+        D -- WebSocket Stream --> G(Cloudflare Tunnel)
+    end
+
+    subgraph "Home PC (Ryzen 5 RTX 4070)"
+        direction LR
+        G -- Secure Tunnel --> H[Client Dashboard]
+        F -- Triples/Embeddings --> I[HolE Training/Inference]
+        H -- API Calls --> G
+    end
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style D fill:#bbf,stroke:#333,stroke-width:2px
+    style E fill:#bbf,stroke:#333,stroke-width:2px
+    style F fill:#bbf,stroke:#333,stroke-width:2px
+    style G fill:#bbf,stroke:#333,stroke-width:2px
+    style H fill:#ccf,stroke:#333,stroke-width:2px
+    style I fill:#ccf,stroke:#333,stroke-width:2px
