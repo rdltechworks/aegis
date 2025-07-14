@@ -1,0 +1,60 @@
+
+version: '3.8'
+services:
+  mqtt:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+      - mosquitto_log:/mosquitto/log
+
+  hub:
+    build:
+      context: .
+      dockerfile: Dockerfile.hub
+    container_name: digital_guardian_hub
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./src/hub:/app/hub
+      - ./data:/app/data
+      - ./config:/app/config
+    depends_on:
+      - mqtt
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    container_name: digital_guardian_agent
+    depends_on:
+      - hub
+    volumes:
+      - ./src/agent:/app/agent
+      - ./data:/app/data
+      - ./config:/app/config
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  ui:
+    build:
+      context: ./src/ui
+      dockerfile: Dockerfile
+    container_name: digital_guardian_ui
+    ports:
+      - "8000:8000"
+    depends_on:
+      - hub
+      - agent
+    volumes:
+      - ./src/ui:/app
+
+volumes:
+  mosquitto_data:
+  mosquitto_log:

@@ -1,0 +1,13 @@
+
+database:
+  path: "data/guardian.db"
+
+mqtt:
+  broker: "mqtt"
+  port: 1883
+  topics:
+    - "home/network/traffic"
+    - "home/devices/+/status"
+
+agent:
+  model: "gemini-2.5-pro"

@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Aegis Hub</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <h1>Aegis Hub</h1>
+    <div id="chatbox"></div>
+    <input id="message" autocomplete="off"/><button onclick="sendMessage()">Send</button>
+
+    <script>
+        var ws = new WebSocket("ws://localhost:8000/ws");
+        ws.onmessage = function(event) {
+            var messages = document.getElementById('chatbox')
+            var message = document.createElement('div')
+            var content = document.createTextNode(event.data)
+            message.appendChild(content)
+            messages.appendChild(message)
+        };
+        function sendMessage() {
+            var input = document.getElementById("message")
+            ws.send(input.value)
+            input.value = ''
+        }
+    </script>
+</body>
+</html>
