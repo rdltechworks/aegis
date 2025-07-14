@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  mqtt_broker:
+    image: eclipse-mosquitto:2.0.15
+    container_name: mqtt_broker
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    volumes:
+      - ./mosquitto_data:/mosquitto/data
+      - ./mosquitto_log:/mosquitto/log
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+
+  guardian_hub:
+    build:
+      context: .
+      dockerfile: Dockerfile.hub
+    container_name: guardian_hub
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    depends_on:
+      - mqtt_broker
+    environment:
+      - MQTT_BROKER_HOST=mqtt_broker
+      - MQTT_BROKER_PORT=1883
+
+  guardian_agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    container_name: guardian_agent
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+      - ./.env:/app/.env
+    depends_on:
+      - guardian_hub
+    environment:
+      - OLLAMA_HOST=http://ollama:11434 # Assuming Ollama runs in a separate container or accessible via network
+      - DEFAULT_MODEL=gemma:2b
+      - MAX_TOKENS=2048
+      - TIMEOUT=60
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ./ollama_data:/root/.ollama
+    # Deploy on specific devices if needed, e.g., for GPU acceleration
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]

@@ -1,0 +1,35 @@
+Key,Epic,Summary,Description,Week,Status
+AEGIS-1,Foundation & Environment Setup,Hardware Preparation,"- Raspberry Pi 5 unboxing and initial setup
+- Install heat sinks and cooling solution
+- Connect power supply, storage, and network
+- Initial boot and hardware verification",1,To Do
+AEGIS-2,Foundation & Environment Setup,Operating System Installation,"- Download Raspberry Pi OS 64-bit (Bookworm)
+- Flash to high-speed microSD (Class 10+) or NVMe SSD
+- Enable SSH, configure user accounts
+- Update system packages: sudo apt update && sudo apt upgrade -y",1,To Do
+AEGIS-3,Foundation & Environment Setup,System Configuration,"- Enable GPU memory split: sudo raspi-config → Advanced → Memory Split → 128
+- Configure swap file (4GB): sudo dphys-swapfile swapoff && sudo nano /etc/dphys-swapfile
+- Install essential packages: git, curl, htop, neofetch",1,To Do
+AEGIS-4,Foundation & Environment Setup,Docker Installation,"- Install Docker Engine: curl -fsSL https://get.docker.com -o get-docker.sh
+- Add user to docker group: sudo usermod -aG docker $USER
+- Install Docker Compose: sudo apt install docker-compose-plugin
+- Verify installation: docker --version && docker compose version",1,To Do
+AEGIS-5,Foundation & Environment Setup,Docker Optimization for Pi 5,"- Configure Docker daemon with ARM64 optimizations
+- Set memory limits and swap accounting
+- Configure log rotation for containers
+- Test basic ARM64 container deployment",1,To Do
+AEGIS-6,Foundation & Environment Setup,Container Registry Setup,"- Configure Docker Hub authentication
+- Test multi-architecture builds
+- Set up local registry (optional)",1,To Do
+AEGIS-7,Foundation & Environment Setup,Development Tools Setup,"- Install Python 3.11+ with pip
+- Set up virtual environment management
+- Configure VS Code Server (optional)
+- Install development dependencies",1,To Do
+AEGIS-8,Foundation & Environment Setup,Project Structure Creation,"- Create project directory structure
+- Initialize Git repository
+- Set up configuration management
+- Create initial documentation",1,To Do
+AEGIS-9,Foundation & Environment Setup,Google ADK Research & Testing,"- Study Google ADK documentation
+- Install ADK in development environment
+- Create minimal test agent
+- Validate ADK functionality on ARM64",1,To Do

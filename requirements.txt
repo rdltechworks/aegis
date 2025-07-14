@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pydantic
+sqlite3
+requests
+paho-mqtt
+python-dotenv
+ollama
+psutil

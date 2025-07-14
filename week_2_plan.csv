@@ -1,0 +1,37 @@
+Key,Epic,Summary,Description,Week,Status
+AEGIS-10,Core Agent Development,Core Agent Development,"- Implement Llmagent class with Google ADK
+- Configure agent with system prompts
+- Implement basic conversation handling
+- Add error handling and logging",2,To Do
+AEGIS-11,Core Agent Development,Agent Configuration,"- Design configuration system (.env files)
+- Implement model selection logic
+- Add memory management for Pi 5 constraints
+- Configure response limits and timeouts",2,To Do
+AEGIS-12,Core Agent Development,Basic Tool Implementation,"- Create SystemInfoTool class
+- Implement CalculatorTool class
+- Design tool registration system
+- Add tool execution error handling",2,To Do
+AEGIS-13,Core Agent Development,Ollama Setup,"- Install Ollama on Raspberry Pi 5
+- Configure for ARM64 architecture
+- Test basic model loading
+- Optimize for 8GB RAM constraints",2,To Do
+AEGIS-14,Core Agent Development,Model Selection & Testing,"- Test Gemma 2B model performance
+- Evaluate alternative lightweight models
+- Benchmark inference speed and memory usage
+- Document optimal model configurations",2,To Do
+AEGIS-15,Core Agent Development,ADK-Ollama Integration,"- Configure ADK to use Ollama endpoint
+- Implement model switching logic
+- Add connection error handling
+- Test agent responses with local models",2,To Do
+AEGIS-16,Core Agent Development,FastAPI Application,"- Create FastAPI application structure
+- Implement chat endpoint with proper error handling
+- Add health check and status endpoints
+- Configure CORS and security headers",2,To Do
+AEGIS-17,Core Agent Development,API Documentation,"- Set up OpenAPI/Swagger documentation
+- Create API usage examples
+- Add response models and validation
+- Implement request rate limiting",2,To Do
+AEGIS-18,Core Agent Development,Integration Testing,"- Test API endpoints with curl
+- Validate response formats
+- Test error scenarios
+- Performance testing on Pi 5",2,To Do
